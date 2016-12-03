@@ -18,9 +18,12 @@ public class BrowseFrame extends JFrame {
 	private JTextArea searchResultField;
 	private JPanel browsePanel;
 	private JLabel browseIsbnLabel;
+	private JLabel addToCartLabel;
 	private JTextField isbnField;
+	private JTextField addToCartField;
 	private JButton searchButton;
 	private JButton searchAllButton;
+	private JButton addToCartButton;
 	
 	public BrowseFrame() 
 	{
@@ -35,9 +38,12 @@ public class BrowseFrame extends JFrame {
 	private void createTextField()
 	      {
 	         browseIsbnLabel = new JLabel("Book ISBN: ");
-	   
+	         addToCartLabel = new JLabel("Type in ONE book's ID number then add to cart: ");
+
 	         final int FIELD_WIDTH = 13;
 	         isbnField = new JTextField(FIELD_WIDTH);
+	         addToCartField = new JTextField(FIELD_WIDTH);
+
 	         //isbnField.setText("");
 	      }
 
@@ -52,23 +58,36 @@ public class BrowseFrame extends JFrame {
 	{
 		searchButton = new JButton("Search");
 		searchAllButton = new JButton("Search All");
-		
+		addToCartButton = new JButton("Add to Cart");
 		
 		 ActionListener SearchListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
- 	    	    	
+ 	    		//back-end query results displayed
  	    	}
  	    };
  	    
  	   ActionListener SearchAllListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	
+	    		//back-end query results displayed
+	    	}
+	    };
+	    
+	    ActionListener AddToCartListener = new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//sends book id number to back end, back end sends back book's info,
+	    		//which is displayed in the cart
+	    		setVisible(false);
+	 	    	JFrame frame = new CartFrame();
+	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 	   		frame.setTitle("GetRid - Cart");
+	 	   		frame.setResizable(false);
+	 	   		frame.setVisible(true);
 	    	}
 	    };
 
 		searchButton.addActionListener(SearchListener);
 		searchAllButton.addActionListener(SearchAllListener);
-		
+		addToCartButton.addActionListener(AddToCartListener);
 	}
 	
 	private void createPanel()
@@ -84,6 +103,9 @@ public class BrowseFrame extends JFrame {
 		browsePanel.add(scrollPane);
 		
 		browsePanel.add(searchAllButton);
+		browsePanel.add(addToCartLabel);
+		browsePanel.add(addToCartField);
+		browsePanel.add(addToCartButton);
 		
 		add(browsePanel);
 	}

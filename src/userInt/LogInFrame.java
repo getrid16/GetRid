@@ -37,10 +37,10 @@ public class LogInFrame extends JFrame {
 	private void createTextField()
 	      {
 			final int FIELD_WIDTH = 20;
-	         usernameLabel = new JLabel("Username: ");	   
+	         usernameLabel = new JLabel("   Username: ");	   
 	         usernameField = new JTextField(FIELD_WIDTH);
 	         
-	         passwordLabel = new JLabel("Password: ");	   
+	         passwordLabel = new JLabel("   Password: ");	   
 	         passwordField = new JTextField(FIELD_WIDTH);
 	      }
 	
