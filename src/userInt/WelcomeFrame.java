@@ -57,7 +57,12 @@ public class WelcomeFrame extends JFrame {
  	    
  	   ActionListener LogInListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	
+	    		setVisible(false);
+	 	    	JFrame frame = new LogInFrame();
+	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 	   		frame.setTitle("GetRid - Log In");
+	 	   		frame.setResizable(false);
+	 	   		frame.setVisible(true);
 	    	}
 	    };
 
