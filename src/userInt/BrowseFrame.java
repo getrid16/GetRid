@@ -24,7 +24,7 @@ public class BrowseFrame extends JFrame {
 	private JButton searchButton;
 	private JButton searchAllButton;
 	private JButton addToCartButton;
-	
+	//may need try/catch block if we use the initialize method in DBConnection so we can call DBConnection.initialize()
 	public BrowseFrame() 
 	{
 		createTextField();
@@ -62,13 +62,17 @@ public class BrowseFrame extends JFrame {
 		
 		 ActionListener SearchListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
- 	    		//back-end query results displayed
+ 	    		//back-end query results displayed for individual search
+ 	    		String search = isbnField.getText();// takes the text in the search field
+ 	    		//search method that passes search and returns result(s) 
+ 	    		//method located in BookDBAccess
+ 	    		
  	    	}
  	    };
  	    
  	   ActionListener SearchAllListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//back-end query results displayed
+	    		//back-end query results displayed for general search
 	    	}
 	    };
 	    
