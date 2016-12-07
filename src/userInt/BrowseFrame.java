@@ -76,7 +76,7 @@ public class BrowseFrame extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    		//sends book id number to back end, back end sends back book's info,
 	    		//which is displayed in the cart
-	    		setVisible(false);
+	 	    	dispose();
 	 	    	JFrame frame = new CartFrame();
 	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	 	   		frame.setTitle("GetRid - Cart");

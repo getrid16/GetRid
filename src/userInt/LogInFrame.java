@@ -1,6 +1,5 @@
 package userInt;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 
 public class LogInFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
@@ -51,7 +51,16 @@ public class LogInFrame extends JFrame {
 		
 		 ActionListener LoginListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
- 	    	    
+ 	    	//if problems, joptionpane saying incorrect info, pls try again
+ 	    		
+ 	    	//if no problems with login
+ 	    		Variables.isLoggedIn = true;
+ 	 	    	dispose();
+ 	 	    	JFrame frame = new MenuFrame();
+ 	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 	 	   		frame.setTitle("GetRid - Menu");
+ 	 	   		frame.setResizable(false);
+ 	 	   		frame.setVisible(true);
  	    	}
  	    };
  	    
