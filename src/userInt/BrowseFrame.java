@@ -3,6 +3,8 @@ package userInt;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -11,6 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import DBAccessClasses.BookDBAccess;
+import ObjectClasses.Book;
 
 public class BrowseFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
@@ -25,6 +30,8 @@ public class BrowseFrame extends JFrame {
 	private JButton searchAllButton;
 	private JButton addToCartButton;
 	//may need try/catch block if we use the initialize method in DBConnection so we can call DBConnection.initialize()
+	
+	BookDBAccess bookdba= new BookDBAccess();//added
 	public BrowseFrame() 
 	{
 		createTextField();
@@ -63,16 +70,40 @@ public class BrowseFrame extends JFrame {
 		 ActionListener SearchListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
  	    		//back-end query results displayed for individual search
- 	    		String search = isbnField.getText();// takes the text in the search field
- 	    		//search method that passes search and returns result(s) 
- 	    		//method located in BookDBAccess
- 	    		
+ 	    		String search;// takes the text in the search field
+ 	    		try {
+					search=bookdba.getBookByISBN(isbnField.getText());//added. may have to put all classes in single package so they can be accessed statically
+					searchResultField.setText(search);//added. check to see if ArrayList declaration is needed here
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}//search method that passes search and returns result(s) method located in BookDBAccess
  	    	}
  	    };
  	    
  	   ActionListener SearchAllListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		//back-end query results displayed for general search
+	    	//call to method that will display the contents of ArrayList in formated string
+	    		ArrayList<Book> bookResults = null;
+	    		String results;
+				try {
+					bookResults = bookdba.searchAllBooks();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    		for(int i=0; i<bookResults.size(); i++){//prints out the list of results in formatted string
+	    			results=bookResults.get(i).BooktoString();//may add "\n"
+	    			searchResultField.append(results);
+	    		}
+	    		
 	    	}
 	    };
 	    
