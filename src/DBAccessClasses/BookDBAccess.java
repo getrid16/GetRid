@@ -22,7 +22,10 @@ import ObjectClasses.Book;
  */
 public class BookDBAccess {//may remove public access specifier
 
+
 	private static Connection conn;
+	
+	
 	/**
 	 * this method will search for books that match the isbn passed and return them to be displayed. if no book is found a message is returned. 
 	 * the method may need to be modified for the different search options if the separate one isn't created i.e. author, subject, edition etc.
@@ -32,19 +35,22 @@ public class BookDBAccess {//may remove public access specifier
 	 * @throws SQLException
 	 */
 	public String getBookByISBN( String isbn)throws ClassNotFoundException, SQLException{
-		conn=getConnection();//solution to error is uncommenting code in DBConnection class. see explanation
-		String searchResult;
-		//PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname, Seller_Name, Price"
-			//	+ " FROM product WHERE ISBN="+isbn);//testing this way of writing the query. use OR if it doesn't work
+		conn=DBConnection.getConnection();
+		String searchResult=null;	
 		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname,"
 				+ "Seller_Name, Price FROM product WHERE ISBN=?");
-		stmt.setString(1,isbn);//change ISBN to char in database or pass a int in method header
+		stmt.setString(1,isbn);
+		
+		//change ISBN to char in database or pass a int in method header
+		
 		ResultSet rs= stmt.executeQuery();
 		if(!rs.next()){
 			searchResult="No Book found, please try again";
 		}
 		else
-			while(rs.next()){//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+			while(rs.next()){
+				//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+				
 				int entrynum=rs.getInt("Entry_number");
 				String title=rs.getString("Booktitle");
 				int ISBN=rs.getInt("ISBN");
@@ -74,7 +80,7 @@ public class BookDBAccess {//may remove public access specifier
 	 */
 	public ArrayList<Book> searchAllBooks()throws ClassNotFoundException, SQLException{
 		ArrayList<Book>books;
-		conn=getConnection();
+		conn=DBConnection.getConnection();
 		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, SellerAcountNum, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname, "
 				+ "Seller_Name, Price FROM product");
 		ResultSet rs= stmt.executeQuery();
@@ -127,8 +133,8 @@ public class BookDBAccess {//may remove public access specifier
 	 * @throws SQLException
 	 */
 	public String getBookByTitle(String Title)throws ClassNotFoundException, SQLException{
-		conn=getConnection();//solution to error is uncommenting code in DBConnection class. see explanation
-		String searchResult;
+		conn=DBConnection.getConnection();//solution to error is uncommenting code in DBConnection class. see explanation
+		String searchResult=null;
 		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname,"
 				+ "Seller_Name, Price FROM product WHERE Booktitle=?");
 		stmt.setString(1, Title);
@@ -165,8 +171,8 @@ public class BookDBAccess {//may remove public access specifier
 	 * @throws SQLException
 	 */
 	public String getBookByAuthor( String first, String last)throws ClassNotFoundException, SQLException{
-		conn=getConnection();//solution to error is uncommenting code in DBConnection class. see explanation
-		String searchResult;
+		conn=DBConnection.getConnection();//solution to error is uncommenting code in DBConnection class. see explanation
+		String searchResult=null;
 		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname,Seller_Name, "
 				+ "Price FROM product WHERE Author_Firstname=? AND Author_Lastname=?");
 		stmt.setString(1,first);
