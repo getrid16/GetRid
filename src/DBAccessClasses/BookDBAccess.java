@@ -133,7 +133,7 @@ public class BookDBAccess {//may remove public access specifier
 	 * @throws SQLException
 	 */
 	public String getBookByTitle(String Title)throws ClassNotFoundException, SQLException{
-		conn=DBConnection.getConnection();//solution to error is uncommenting code in DBConnection class. see explanation
+		conn=DBConnection.getConnection();
 		String searchResult=null;
 		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname,"
 				+ "Seller_Name, Price FROM product WHERE Booktitle=?");
