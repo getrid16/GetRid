@@ -45,7 +45,7 @@ public class WelcomeFrame extends JFrame {
 		
 		 ActionListener BrowseListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
- 	    	setVisible(false);
+ 	    	dispose();
  	    	JFrame frame = new BrowseFrame();
  	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  	   		frame.setTitle("GetRid - Search");
@@ -57,7 +57,7 @@ public class WelcomeFrame extends JFrame {
  	    
  	   ActionListener LogInListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		setVisible(false);
+	 	    	dispose();
 	 	    	JFrame frame = new LogInFrame();
 	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	 	   		frame.setTitle("GetRid - Log In");

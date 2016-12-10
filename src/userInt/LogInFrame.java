@@ -1,10 +1,12 @@
 package userInt;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 import javax.swing.*;
+
+import DBAccessClasses.DBConnection;
+
 
 public class LogInFrame extends JFrame 
 {
@@ -56,11 +58,19 @@ public class LogInFrame extends JFrame
 					System.out.println("Username,Pwd:"+usernameField.getText()+","+pwd);
 
 					//The entered user name and password are sent via "checkLogin()" which return boolean
-					if(db.checkLogin(usernameField.getText(), pwd))
+					if(DBConnection.checkLogin(usernameField.getText(), pwd))
 					{
 						//a pop-up box
 					JOptionPane.showMessageDialog(null, "You have logged in successfully","Success",
 					JOptionPane.INFORMATION_MESSAGE);
+					//if no problems with login
+	 	    		Variables.isLoggedIn = true;
+	 	 	    	dispose();
+	 	 	    	JFrame frame = new MenuFrame();
+	 	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 	 	   		frame.setTitle("GetRid - Menu");
+	 	 	   		frame.setResizable(false);
+	 	 	   		frame.setVisible(true);
 					}
 					else
 					{
@@ -70,12 +80,15 @@ public class LogInFrame extends JFrame
 					}
 				}	
 			}
+		 
  	    };
- 	    
+		 
  	   ActionListener SignupListener = new ActionListener() 
  	   {
 	    	public void actionPerformed(ActionEvent ae) 
 	    	{
+	    		
+	    	
 	    	/*	//checks if the button clicked
 				if(ae.getSource()==SignupListener)
 				{
@@ -98,12 +111,14 @@ public class LogInFrame extends JFrame
 					}
 				}	*/
 	    	}
+	    	 
  	    };
-
+		 
  	    loginButton.addActionListener(LoginListener);
 	 	signupButton.addActionListener(SignupListener);
 		
-	}
+		 }
+	
  	   
 	private void createPanel()
 	{
@@ -133,3 +148,4 @@ public class LogInFrame extends JFrame
 		add(loginPanel);
 	}
 }
+

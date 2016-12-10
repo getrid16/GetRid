@@ -8,9 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 public class CartFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
@@ -43,7 +41,7 @@ public class CartFrame extends JFrame {
 		
 		 ActionListener AddAnotherBookListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
- 	    		setVisible(false);
+ 	 	    	dispose();
  	 	    	JFrame frame = new BrowseFrame();
  	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  	 	   		frame.setTitle("GetRid - Search");
@@ -54,7 +52,25 @@ public class CartFrame extends JFrame {
  	    
  	   ActionListener CheckoutAndPayListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//add up all prices of books in cart and move to paymentFrame
+	    		// check if IsLoggedIn = true, then add up all prices of books in cart and move to CheckoutFrame
+	    		if(Variables.isLoggedIn) 
+	    		{
+	    			JFrame frame = new CheckoutFrame();
+ 	 	   			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 	 	   			frame.setTitle("GetRid - Checkout");
+ 	 	   			frame.setResizable(false);
+ 	 	   			frame.setVisible(true);
+	    		}
+	    		else
+	    		{
+ 	 	   		//check if IsLoggedIn = false, then go to LogInFrame
+	     	    dispose();
+	 	    	JFrame frame = new LogInFrame();
+	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 	   		frame.setTitle("GetRid - Log In");
+	 	   		frame.setResizable(false);
+	 	   		frame.setVisible(true);
+	    		}
 	    	}
 	    };
 	   
