@@ -24,6 +24,7 @@ public class BrowseFrame extends JFrame {
 	private JButton searchButton;
 	private JButton searchAllButton;
 	private JButton addToCartButton;
+	private JButton menu;
 	//may need try/catch block if we use the initialize method in DBConnection so we can call DBConnection.initialize()
 	public BrowseFrame() 
 	{
@@ -59,6 +60,7 @@ public class BrowseFrame extends JFrame {
 		searchButton = new JButton("Search");
 		searchAllButton = new JButton("Search All");
 		addToCartButton = new JButton("Add to Cart");
+		menu = new JButton("Menu");
 		
 		 ActionListener SearchListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
@@ -89,9 +91,22 @@ public class BrowseFrame extends JFrame {
 	    	}
 	    };
 
+	    ActionListener MenuListener = new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	 	    	dispose();
+	 	    	JFrame frame = new MenuFrame();
+	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 	   		frame.setTitle("GetRid - Menu");
+	 	   		frame.setResizable(false);
+	 	   		frame.setVisible(true);
+	    	}
+	    };
+	    
+	    menu.addActionListener(MenuListener);
 		searchButton.addActionListener(SearchListener);
 		searchAllButton.addActionListener(SearchAllListener);
 		addToCartButton.addActionListener(AddToCartListener);
+		
 	}
 	
 	private void createPanel()
@@ -110,7 +125,7 @@ public class BrowseFrame extends JFrame {
 		browsePanel.add(addToCartLabel);
 		browsePanel.add(addToCartField);
 		browsePanel.add(addToCartButton);
-		
+		browsePanel.add(menu);
 		add(browsePanel);
 	}
 }

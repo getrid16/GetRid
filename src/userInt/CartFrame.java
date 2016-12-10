@@ -17,6 +17,7 @@ public class CartFrame extends JFrame {
 	private JPanel cartPanel;
 	private JButton addAnotherBookButton;
 	private JButton checkoutButton;
+	private JButton menu;
 	
 	public CartFrame() 
 	{
@@ -73,6 +74,19 @@ public class CartFrame extends JFrame {
 	    		}
 	    	}
 	    };
+	    
+	    ActionListener MenuListener = new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	 	    	dispose();
+	 	    	JFrame frame = new MenuFrame();
+	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 	   		frame.setTitle("GetRid - Menu");
+	 	   		frame.setResizable(false);
+	 	   		frame.setVisible(true);
+	    	}
+	    };
+	    
+	    menu.addActionListener(MenuListener);
 	   
 
 	    addAnotherBookButton.addActionListener(AddAnotherBookListener);
@@ -89,6 +103,7 @@ public class CartFrame extends JFrame {
 		
 		cartPanel.add(addAnotherBookButton);
 		cartPanel.add(checkoutButton);
+		cartPanel.add(menu, new FlowLayout().LEFT);
 		
 		add(cartPanel);
 	}
