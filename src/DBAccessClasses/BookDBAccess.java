@@ -27,9 +27,9 @@ public class BookDBAccess {//may remove public access specifier
 	
 	
 	/**
-	 * this method will search for books that match the isbn passed and return them to be displayed. if no book is found a message is returned. 
+	 * this method will search for books that match the ISBN passed and return them to be displayed. if no book is found a message is returned. 
 	 * the method may need to be modified for the different search options if the separate one isn't created i.e. author, subject, edition etc.
-	 * @param isbn the isbn entered in the browse class for the initial search
+	 * @param isbn the ISBN entered in the browse class for the initial search
 	 * @return a list of books or "not found" message
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -57,7 +57,7 @@ public class BookDBAccess {//may remove public access specifier
 				String condition=rs.getString("Condition");
 				String authorFirst=rs.getString("Author_Firstname");
 				String authorLast=rs.getString("Author_Lastname");
-				String seller=rs.getString("Seller");
+				String seller=rs.getString("Seller_Name");
 				double price=rs.getDouble("Price");
 				searchResult="Entry Number: "+entrynum+"\t"+title+
 						"\nISBN:\t"+ISBN+
@@ -120,7 +120,7 @@ public class BookDBAccess {//may remove public access specifier
 		String condition=rs.getString("Condition");
 		String authorFirst=rs.getString("Author_Firstname");
 		String authorLast=rs.getString("Author_Lastname");
-		String seller=rs.getString("Seller");
+		String seller=rs.getString("Seller_Name");
 		double price=rs.getDouble("Price");
 		Book book= new Book(entrynum, sellerAcc, seller, title, authorFirst, authorLast, ISBN, price, condition);
 		return book;
@@ -150,7 +150,7 @@ public class BookDBAccess {//may remove public access specifier
 				String condition=rs.getString("Condition");
 				String authorFirst=rs.getString("Author_Firstname");
 				String authorLast=rs.getString("Author_Lastname");
-				String seller=rs.getString("Seller");
+				String seller=rs.getString("Seller_Name");
 				double price=rs.getDouble("Price");
 				searchResult="Entry Number: "+entrynum+"\t"+title+
 						"\nISBN:\t"+ISBN+
@@ -171,7 +171,7 @@ public class BookDBAccess {//may remove public access specifier
 	 * @throws SQLException
 	 */
 	public String getBookByAuthor( String first, String last)throws ClassNotFoundException, SQLException{
-		conn=DBConnection.getConnection();//solution to error is uncommenting code in DBConnection class. see explanation
+		conn=DBConnection.getConnection();
 		String searchResult=null;
 		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname,Seller_Name, "
 				+ "Price FROM product WHERE Author_Firstname=? AND Author_Lastname=?");
@@ -189,7 +189,7 @@ public class BookDBAccess {//may remove public access specifier
 				String condition=rs.getString("Condition");
 				String authorFirst=rs.getString("Author_Firstname");
 				String authorLast=rs.getString("Author_Lastname");
-				String seller=rs.getString("Seller");
+				String seller=rs.getString("Seller_Name");
 				double price=rs.getDouble("Price");
 				searchResult="Entry Number: "+entrynum+"\t"+title+
 						"\nISBN:\t"+ISBN+
@@ -202,4 +202,127 @@ public class BookDBAccess {//may remove public access specifier
 		return searchResult;//return the formated string
 	}
 	
+	 /**
+	  * This method will search for a book in the database by seller's account number 
+	  * when someone is trying to find their book, they can use this method
+	  * @param num the seller's account number
+	  * @return formatted string of the result
+	  * @throws ClassNotFoundException
+	  * @throws SQLException
+	  */
+	public String getBookByAccNum(int num)throws ClassNotFoundException, SQLException{
+		conn=DBConnection.getConnection();
+		String searchResult=null;
+		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname, Seller_Name, "
+				+ "Price FROM product WHERE SellerAccountNum=?");
+		stmt.setInt(1,num);
+		ResultSet rs= stmt.executeQuery();
+		if(!rs.next()){
+			searchResult="No Book found, please try again";
+		}
+		else
+			while(rs.next()){//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+				int entrynum=rs.getInt("Entry_number");
+				String title=rs.getString("Booktitle");
+				int ISBN=rs.getInt("ISBN");
+				String condition=rs.getString("Condition");
+				String authorFirst=rs.getString("Author_Firstname");
+				String authorLast=rs.getString("Author_Lastname");
+				String seller=rs.getString("Seller_Name");
+				double price=rs.getDouble("Price");
+				searchResult="Entry Number: "+entrynum+"\t"+title+
+						"\nISBN:\t"+ISBN+
+						"\nAuthor:"+authorFirst+" "+authorLast+
+						"\nSeller:\t"+seller+
+						"\nCondition:\t"+condition+"\nPrice:\t"+price;
+				
+			}
+		stmt.close();
+		return searchResult;//return the formated string
+	}
+	/**
+	 * This method will search for a book by the seller's name so if a user what's to find their book they can search by their name
+	 * @param name the name of the seller of a book
+	 * @return a formatted String of the result
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public String getBookBySellerName(String name)throws ClassNotFoundException, SQLException{
+		conn=DBConnection.getConnection();
+		String searchResult=null;
+		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname, Seller_Name, "
+				+ "Price FROM product WHERE Seller_Name=?");
+		stmt.setString(1,name);
+		ResultSet rs= stmt.executeQuery();
+		if(!rs.next()){
+			searchResult="No Book found, please try again";
+		}
+		else
+			while(rs.next()){//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+				int entrynum=rs.getInt("Entry_number");
+				String title=rs.getString("Booktitle");
+				int ISBN=rs.getInt("ISBN");
+				String condition=rs.getString("Condition");
+				String authorFirst=rs.getString("Author_Firstname");
+				String authorLast=rs.getString("Author_Lastname");
+				String seller=rs.getString("Seller_Name");
+				double price=rs.getDouble("Price");
+				searchResult="Entry Number: "+entrynum+"\t"+title+
+						"\nISBN:\t"+ISBN+
+						"\nAuthor:"+authorFirst+" "+authorLast+
+						"\nSeller:\t"+seller+
+						"\nCondition:\t"+condition+"\nPrice:\t"+price;
+				
+			}
+		stmt.close();
+		return searchResult;//return the formated string
+	}
+
+	/**
+	 * This method will be called when a user is adding a book to the database. All the parameters can be passed at the moment the method is called or 
+	 * the object can be created then past making the method take Book type parameters. Changes may have to be made for auto incrementing primary key
+	 * and whatever field parameters we decide on keeping or omitting. Maybe have a boolean variable to return when the method finishes?
+	 * @param EntryNumber the auto incremented number that notes the entry of the book in the table
+	 * @param SellerAccNum the seller's account number that may or may not be randomly generated by us
+	 * @param SellerName the name of the Seller
+	 * @param BookTitle the title of the book
+	 * @param AuthorFirstname the first name of the Author of the book
+	 * @param AuthorLastname the last name of the Author of the book
+	 * @param ISBN the book's ISBN
+	 * @param Price the price the seller is asking for
+	 * @param Condition the condition of the book
+	 * @throws SQLException 
+	 */
+	public void addBook(int EntryNumber, int SellerAccNum, String SellerName, String BookTitle, String AuthorFirstname, String AuthorLastname, int ISBN, double Price, String Condition) throws SQLException
+	{
+		conn=DBConnection.getConnection();
+		PreparedStatement stmt= conn.prepareStatement("INSERT into Product values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		stmt.setInt(1, EntryNumber);
+		stmt.setInt(2, SellerAccNum);
+		stmt.setString(3, SellerName);
+		stmt.setString(4, BookTitle);
+		stmt.setString(5, AuthorFirstname);
+		stmt.setString(6, AuthorLastname);
+		stmt.setInt(7, ISBN);
+		stmt.setDouble(8, Price);
+		stmt.setString(9, Condition);
+		
+		stmt.close();
+	}
+	
+	/**
+	 * This method will let users remove a book from the database they no long wish to sell
+	 * it will remove a record that matches the title and seller account number. There should be a check variable but that depends on how this 
+	 * method will be called and where the results will be displayed. the check variable will let th user know the record
+	 * has been deleted successfully
+	 * @param entrynum
+	 * @param accNum
+	 * @throws SQLException 
+	 */
+	public void removeBook(String title, int accNum) throws SQLException{
+		conn=DBConnection.getConnection();
+		PreparedStatement stmt= conn.prepareStatement("DELETE from Product where Booktitle=? AND SellerAccountNum=?");
+		stmt.setString(1, title);
+		stmt.setInt(2, accNum);
+	}
 }
