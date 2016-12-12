@@ -1,16 +1,12 @@
 package userInt;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
 
 public class MenuFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
@@ -73,21 +69,21 @@ public class MenuFrame extends JFrame {
 		    };
 		    
 		    
-		 /*	   ActionListener AccountManagementListener = new ActionListener() {
+		    ActionListener AccountManagementListener = new ActionListener() {
 			    	public void actionPerformed(ActionEvent e) {
 			    		setVisible(false);
-			 	    	JFrame frame = new AccountInfoFrame();
+			 	    	JFrame frame = new AccountManagementFrame();
 			 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			 	   		frame.setTitle("GetRid - Account Info");
+			 	   		frame.setTitle("GetRid - Update Account");
 			 	   		frame.setResizable(false);
 			 	   		frame.setVisible(true);
 			    	}
-			    }; */
+			  };
 	    
 		browseButton.addActionListener(BrowseListener);
 		ridButton.addActionListener(RidListener);
 		cartButton.addActionListener(CartListener);
-	//	accountManagementButton.addActionListener(AccountManagementListener);
+		accountManagementButton.addActionListener(AccountManagementListener);
 	}
 	
 	private void createPanel()
