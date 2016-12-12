@@ -87,7 +87,12 @@ public class LogInFrame extends JFrame
  	   {
 	    	public void actionPerformed(ActionEvent ae) 
 	    	{
-	    		
+	    		dispose();
+ 	 	    	JFrame frame = new SignUpFrame();
+ 	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 	 	   		frame.setTitle("GetRid - Sign Up");
+ 	 	   		frame.setResizable(false);
+ 	 	   		frame.setVisible(true);
 	    	
 	    	/*	//checks if the button clicked
 				if(ae.getSource()==SignupListener)
