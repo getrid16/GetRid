@@ -34,12 +34,12 @@ public class BookDBAccess {//may remove public access specifier
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public String getBookByISBN( String isbn)throws ClassNotFoundException, SQLException{
+	public String getBookByISBN(int isbn)throws ClassNotFoundException, SQLException{
 		conn=DBConnection.getConnection();
 		String searchResult=null;	
 		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname,"
 				+ "Seller_Name, Price FROM product WHERE ISBN=?");
-		stmt.setString(1,isbn);
+		stmt.setInt(1,isbn);
 		
 		//change ISBN to char in database or pass a int in method header
 		
