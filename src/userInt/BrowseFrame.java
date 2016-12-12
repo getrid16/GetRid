@@ -72,10 +72,11 @@ public class BrowseFrame extends JFrame {
 		 ActionListener SearchListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
  	    		//back-end query results displayed for individual search
- 	    		String search;// takes the text in the search field
+ 	    		int search;// takes the text in the search field
  	    		try {
-					search=bookdba.getBookByISBN(isbnField.getText());//added. may have to put all classes in single package so they can be accessed statically
-					searchResultField.setText(search);//added. check to see if ArrayList declaration is needed here
+ 	    			search=Integer.parseInt(isbnField.getText());//changes it to an integer
+					String searchResult=bookdba.getBookByISBN(search);//added. may have to put all classes in single package so they can be accessed statically
+					searchResultField.setText(searchResult);//added. check to see if ArrayList declaration is needed here
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
