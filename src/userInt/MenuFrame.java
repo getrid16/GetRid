@@ -50,16 +50,16 @@ public class MenuFrame extends JFrame {
  	    	}
  	    };
  	    
- 	/*   ActionListener RidListener = new ActionListener() {
+ 	    ActionListener RidListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
  	    		dispose();
-	 	    	JFrame frame = new LogInFrame();
+	 	    	JFrame frame = new RidFrame();
 	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	 	   		frame.setTitle("GetRid - Sell Book");
 	 	   		frame.setResizable(false);
 	 	   		frame.setVisible(true);
 	    	}
-	    }; */
+	    }; 
 	    
 	 	   ActionListener CartListener = new ActionListener() {
 		    	public void actionPerformed(ActionEvent e) {
@@ -85,7 +85,7 @@ public class MenuFrame extends JFrame {
 			    }; */
 	    
 		browseButton.addActionListener(BrowseListener);
-	//	ridButton.addActionListener(RidListener);
+		ridButton.addActionListener(RidListener);
 		cartButton.addActionListener(CartListener);
 	//	accountManagementButton.addActionListener(AccountManagementListener);
 	}
