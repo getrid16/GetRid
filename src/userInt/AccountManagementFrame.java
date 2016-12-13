@@ -1,5 +1,7 @@
 package userInt;
-
+/**
+ * this class handles account management for the user
+ */
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

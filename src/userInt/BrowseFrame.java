@@ -19,7 +19,7 @@ import ObjectClasses.Book;
 /**
  * This Class handles the browsing part of the user interface. adding a book to a cart and searching for a particular book
  * or the entire database to see what's in it. There should be options to search by author, title or ISBN
- * @author Mi Yoen
+ * 
  *
  */
 public class BrowseFrame extends JFrame {
@@ -74,6 +74,10 @@ public class BrowseFrame extends JFrame {
 		addToCartButton = new JButton("Add to Cart");
 		menu = new JButton("Menu");
 		
+		/**
+		 * This button when pressed with take the contents of the isbnField, store it in a variable and use it
+		 * to find all the books that match then return its information in a formatted string
+		 */
 		 ActionListener SearchListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
  	    		//back-end query results displayed for individual search
@@ -94,7 +98,10 @@ public class BrowseFrame extends JFrame {
  	    		//here have a JOptionpane tell the user that the book was either added or not found.
  	    	}
  	    };
- 	    
+ 	    /**
+ 	     * This button, when pressed should return a list of every book in the database in a formatted string
+ 	     * that includes its entry number, title, author etc.
+ 	     */
  	   ActionListener SearchAllListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		
@@ -119,7 +126,10 @@ public class BrowseFrame extends JFrame {
 	    		
 	    	}
 	    };
-	    
+	    /**
+	     * This button when pressed, Adds a book matching the entry number to an ArrayList that functions as
+	     * the cart
+	     */
 	    ActionListener AddToCartListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		bookdba.getBookByEntryNum(num);//sends book id number to back end, back end sends back book's info,
@@ -132,7 +142,9 @@ public class BrowseFrame extends JFrame {
 	 	   		frame.setVisible(true);
 	    	}
 	    };
-
+	    /**
+	     * This button when pressed takes the user back to the menu
+	     */
 	    ActionListener MenuListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	 	    	dispose();
