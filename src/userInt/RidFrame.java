@@ -1,5 +1,9 @@
 package userInt;
-
+/**
+ * This class will handle the posting of books-adding new info to the product table. There should also 
+ * be a call to the delete book method to remove a book from the database. the user's credentials will be checked before
+ * the action is performed
+ */
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -87,7 +91,7 @@ public class RidFrame extends JFrame {
 	    	public void actionPerformed(ActionEvent ae) 
 	    	{
 	    		//TODO send to backend the info in the textfields
-	    		
+	    		//addBook() called here after the info is taken into variables and passed
 	    		
 	    		//goes back to main menu after posting book
 	    		dispose();

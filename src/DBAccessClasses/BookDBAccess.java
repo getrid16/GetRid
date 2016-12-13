@@ -279,6 +279,44 @@ public class BookDBAccess {//may remove public access specifier
 	}
 
 	/**
+	 * This method will search for a book by its entry number on the product table of the database
+	 * @param num the entry number
+	 * @return a book object with the information of the book selected
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public Book getBookByEntryNum(int num)throws ClassNotFoundException, SQLException{//added to find book by entry number so it can be added to the cart  
+		conn=DBConnection.getConnection();
+		//String searchResult=null;
+		Book book = null;
+		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, SellerAccountNum, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname, Seller_Name, "
+				+ "Price FROM product WHERE Entry_number=?");
+		stmt.setInt(1,num);
+		ResultSet rs= stmt.executeQuery();
+		/*if(!rs.next()){
+			searchResult="No Book found, please try again";
+			//return searchResult;//return a message saying the book wasn't found
+		}
+		else*/
+			while(rs.next()){//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+				int entrynum=rs.getInt("Entry_number");
+				int sellAccnum=rs.getInt("SellerAccountNum");
+				String title=rs.getString("Booktitle");
+				int ISBN=rs.getInt("ISBN");
+				String condition=rs.getString("Condition");
+				String authorFirst=rs.getString("Author_Firstname");
+				String authorLast=rs.getString("Author_Lastname");
+				String seller=rs.getString("Seller_Name");
+				double price=rs.getDouble("Price");
+				
+				book= new Book( entrynum, sellAccnum, seller, title,
+						authorFirst, authorLast, ISBN, price, condition);
+				
+			}
+		stmt.close();
+		return book;
+	}
+	/**
 	 * This method will be called when a user is adding a book to the database. All the parameters can be passed at the moment the method is called or 
 	 * the object can be created then past making the method take Book type parameters. Changes may have to be made for auto incrementing primary key
 	 * and whatever field parameters we decide on keeping or omitting. Maybe have a boolean variable to return when the method finishes?
@@ -293,11 +331,11 @@ public class BookDBAccess {//may remove public access specifier
 	 * @param Condition the condition of the book
 	 * @throws SQLException 
 	 */
-	public void addBook(int EntryNumber, int SellerAccNum, String SellerName, String BookTitle, String AuthorFirstname, String AuthorLastname, int ISBN, double Price, String Condition) throws SQLException
+	public void addBook( int SellerAccNum, String SellerName, String BookTitle, String AuthorFirstname, String AuthorLastname, int ISBN, double Price, String Condition) throws SQLException
 	{
 		conn=DBConnection.getConnection();
-		PreparedStatement stmt= conn.prepareStatement("INSERT into Product values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-		stmt.setInt(1, EntryNumber);
+		PreparedStatement stmt= conn.prepareStatement("INSERT into Product values(?, ?, ?, ?, ?, ?, ?, ?)");
+		//stmt.setInt(1, EntryNumber); this field of the table is auto incremented
 		stmt.setInt(2, SellerAccNum);
 		stmt.setString(3, SellerName);
 		stmt.setString(4, BookTitle);

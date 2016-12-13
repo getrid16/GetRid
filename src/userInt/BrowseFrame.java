@@ -16,7 +16,12 @@ import javax.swing.JTextField;
 
 import DBAccessClasses.BookDBAccess;
 import ObjectClasses.Book;
-
+/**
+ * This Class handles the browsing part of the user interface. adding a book to a cart and searching for a particular book
+ * or the entire database to see what's in it. There should be options to search by author, title or ISBN
+ * @author Mi Yoen
+ *
+ */
 public class BrowseFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
 	private static final int FRAME_WIDTH = 450;
@@ -30,9 +35,9 @@ public class BrowseFrame extends JFrame {
 	private JButton searchAllButton;
 	private JButton addToCartButton;
 	private JButton menu;
-	//may need try/catch block if we use the initialize method in DBConnection so we can call DBConnection.initialize()
 	
-	BookDBAccess bookdba= new BookDBAccess();//added
+	
+	BookDBAccess bookdba= new BookDBAccess();
 	public BrowseFrame() 
 	{
 		createTextField();
@@ -74,9 +79,10 @@ public class BrowseFrame extends JFrame {
  	    		//back-end query results displayed for individual search
  	    		int search;// takes the text in the search field
  	    		try {
- 	    			search=Integer.parseInt(isbnField.getText());//changes it to an integer
-					String searchResult=bookdba.getBookByISBN(search);//added. may have to put all classes in single package so they can be accessed statically
-					searchResultField.setText(searchResult);//added. check to see if ArrayList declaration is needed here
+ 	    			search=Integer.parseInt(isbnField.getText());//changes it to an integer 
+ 	    			//may change the type in the database to varchar(13)
+					String searchResult=bookdba.getBookByISBN(search);
+					searchResultField.setText(searchResult);//check to see if ArrayList declaration is needed here
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -84,6 +90,8 @@ public class BrowseFrame extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}//search method that passes search and returns result(s) method located in BookDBAccess
+ 	    		
+ 	    		//here have a JOptionpane tell the user that the book was either added or not found.
  	    	}
  	    };
  	    
@@ -112,7 +120,7 @@ public class BrowseFrame extends JFrame {
 	    
 	    ActionListener AddToCartListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//sends book id number to back end, back end sends back book's info,
+	    		bookdba.getBookByEntryNum(num);//sends book id number to back end, back end sends back book's info,
 	    		//which is displayed in the cart
 	 	    	dispose();
 	 	    	JFrame frame = new CartFrame();
