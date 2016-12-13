@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import DBAccessClasses.BookDBAccess;
 import ObjectClasses.Book;
+
 /**
  * This Class handles the browsing part of the user interface. adding a book to a cart and searching for a particular book
  * or the entire database to see what's in it. There should be options to search by author, title or ISBN
@@ -36,7 +37,7 @@ public class BrowseFrame extends JFrame {
 	private JButton addToCartButton;
 	private JButton menu;
 	
-	
+
 	BookDBAccess bookdba= new BookDBAccess();
 	public BrowseFrame() 
 	{
@@ -97,7 +98,9 @@ public class BrowseFrame extends JFrame {
  	    
  	   ActionListener SearchAllListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//back-end query results displayed for general search
+	    		
+	    			
+	    	//back-end query results displayed for general search
 	    	//call to method that will display the contents of ArrayList in formated string
 	    		ArrayList<Book> bookResults = null;
 	    		String results;
