@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import DBAccessClasses.BookDBAccess;
 
 public class RidFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
@@ -43,6 +46,11 @@ public class RidFrame extends JFrame {
 	private JButton menuButton;
 	private JButton submitButton;
 	
+	private JLabel SellerNameLabel;//added
+	private JTextField SellerNameField;//added
+	
+	
+	BookDBAccess bookdba= new BookDBAccess();//added to give access to the BookDBAccess class
 	public RidFrame() 
 	{
 		createTextField();
@@ -54,6 +62,8 @@ public class RidFrame extends JFrame {
 	private void createTextField()
 	      {
 			final int FIELD_WIDTH = 20;
+			 SellerNameLabel=new JLabel("  Seller:  ");//added
+			 SellerNameField=new JTextField(FIELD_WIDTH);//added
 	         bookTitleLabel = new JLabel("   Book Title: ");	   
 	         bookTitleField = new JTextField(FIELD_WIDTH);
 	         isbnLabel = new JLabel("   ISBN (13): ");	   
@@ -85,13 +95,35 @@ public class RidFrame extends JFrame {
  	 	   		frame.setVisible(true);
 			}
  	    };
-		 
+		 /**
+		  * When pressed, this button will take information from the various textfields and pass them to a method that adds book information 
+		  * to the database. the process can be changed by creating a book object and passing THAT to the method which would also be changed
+		  */
  	   ActionListener PostBookListener = new ActionListener() 
  	   {
 	    	public void actionPerformed(ActionEvent ae) 
 	    	{
 	    		//TODO send to backend the info in the textfields
 	    		//addBook() called here after the info is taken into variables and passed
+	    		
+	    		int isbn, sellerAccnum;
+	    		String title, authorFirstname, authorLastname, condition, sellerName;
+	    		double price;
+	    		
+	    		sellerName= SellerNameField.getText();
+	    		sellerAccnum=0;
+	    		title=bookTitleField.getText();
+	    		authorFirstname=firstNameField.getText();
+	    		authorLastname=lastNameField.getText();
+	    		condition=conditionField.getText();
+	    		isbn=Integer.parseInt(isbnField.getText());
+	    		price=Double.parseDouble(priceField.getText());
+	    		try {
+					bookdba.addBook(sellerAccnum, sellerName, title, authorFirstname, authorLastname, isbn, price, condition);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	    		
 	    		//goes back to main menu after posting book
 	    		dispose();

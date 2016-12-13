@@ -351,8 +351,9 @@ public class BookDBAccess {//may remove public access specifier
 	/**
 	 * This method will let users remove a book from the database they no long wish to sell
 	 * it will remove a record that matches the title and seller account number. There should be a check variable but that depends on how this 
-	 * method will be called and where the results will be displayed. the check variable will let th user know the record
-	 * has been deleted successfully
+	 * method will be called and where the results will be displayed. the check variable will let the user know the record
+	 * has been deleted successfully. the primary key of the table or user account(whatever it may be) must be passed as a check to make sure a user is 
+	 * deleting their own book
 	 * @param entrynum
 	 * @param accNum
 	 * @throws SQLException 
