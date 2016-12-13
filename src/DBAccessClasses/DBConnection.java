@@ -1,5 +1,8 @@
 package DBAccessClasses;
-
+/**
+ * this class grants access to the database via the getConnection method which is called by the other
+ * classes in the package.
+ */
 import java.sql.*;
 public class DBConnection {
 	private static Connection conn; 
