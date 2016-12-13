@@ -18,7 +18,6 @@ public class CartFrame extends JFrame {
 	private JButton addAnotherBookButton;
 	private JButton checkoutButton;
 	private JButton menu;
-	
 	public CartFrame() 
 	{
 		createTextArea();
@@ -27,12 +26,14 @@ public class CartFrame extends JFrame {
 		
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 	}
-
+    
 	private void createTextArea() 
 	{
 		cartField = new JTextArea(20, 30);
 		//searchResultField.setText();
 		cartField.setEditable(false);
+		//cartField.setText(cart.get(0)); //for Alexanders part 
+	       
 	}
 	
 	private void createButtons()

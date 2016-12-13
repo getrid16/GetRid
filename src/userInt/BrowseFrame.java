@@ -36,7 +36,7 @@ public class BrowseFrame extends JFrame {
 	private JButton addToCartButton;
 	private JButton menu;
 	
-	
+	//ArrayList<Book> cart= new ArrayList(); //for Alexanders part
 	BookDBAccess bookdba= new BookDBAccess();
 	public BrowseFrame() 
 	{
@@ -104,7 +104,9 @@ public class BrowseFrame extends JFrame {
  	     */
  	   ActionListener SearchAllListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//back-end query results displayed for general search
+	    		
+	    			
+	    	//back-end query results displayed for general search
 	    	//call to method that will display the contents of ArrayList in formated string
 	    		ArrayList<Book> bookResults = null;
 	    		String results;

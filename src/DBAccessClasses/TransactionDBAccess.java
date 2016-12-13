@@ -4,51 +4,98 @@ package DBAccessClasses;
  */
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
+//import java.sql.Date;
+//import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 import java.sql.*;
-import java.text.DecimalFormat;
+//import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
 //import com.mysql.jdbc.PreparedStatement;
+
 /**
  * this class will handle the interaction between the program and the transaction table
  * this includes all transaction related actions and methods to fill the table
  * it will most likely be accessed by the Main Classes when an order is completed to create a record
- * Additionally there will also be a transaction object that is created once a transaction is made. 
  * A summary of the transaction will be sent to the customer as a receipt once a customer makes a transaction.
- * @author gchar158
+ * @param transactionNum This represents the transaction number
+ * @param Seller_Name This represents the name of the seller
+ * @param Seller_Acc_Num This represents the sellers account number
+ * @param Buyer_Name This represents the name of the buyer
+ * @param Buyer_Acc_Num This represents the buyers account number
+ * @param Buyer_Address This represents the buyers address
+ * @param Transaction_Date This represents the date on which a transaction was made
+ * @param Book_Title This represents the title of a book 
+ * @param Author_Firstname This represents the first name of an author from a book
+ * @param Author_Lastname This represents the last name of an author 
+ * @param ISBN This represents the ISBN of a book
+ * @param Price This represents the price of a book
+ * @param Credit_Card_Number This represents a users credit card number
+ * @param Percent_Received This represents the percent that we take from every transaction
+ * @param total This represents the total amount of a transaction
+ * 
+ * @author acord942
  *
  */
 
+
+
 public class TransactionDBAccess {
 	
+	
 	private Connection conn;
+	int transactionNum;
+	String Seller_Name; 
+	int Seller_Acc_Num; 
+	String Buyer_Name;
+	int Buyer_Acc_Num;
+	String Buyer_Address; 
+	int Transaction_Date; 
+	String Book_Title;
+	String Author_Firstname; 
+	String Author_Lastname;
+	int ISBN;
+	Double Price; 
+	int Credit_Card_Number; 
+	Double Percent_Received; 
+	Double total;
+	String received; 
+	String shipped;
+
+	//int transactionNum;
 	
 	
+	/**
+	 * The following method is in charge of creating a transaction once a user makes a purchase. 
+	 * More specifically this method updates the fields of the transaction table with the appropriate inputs.
+	 * @throws SQLException
+	 */
+	
+	//The following method is in charge of creating a transaction once a user makes a purchase. 
 	public void createTransaction(int transactionNum, String Seller_Name, int Seller_Acc_Num, String Buyer_Name, int Buyer_Acc_Num,
-			String Buyer_Address, int transactionD, String Book_Title, String Author_Firstname, 
+			String Buyer_Address, int Transaction_Date, String Book_Title, String Author_Firstname, 
 			String Author_Lastname, int ISBN, Double Price, int Credit_Card_Number, Double Percent_Received, 
-			Double total, String received, String shipped ) throws SQLException
-			
+			Double total, String received, String shipped ) throws SQLException 
+		
 	{
 		conn=DBConnection.getConnection();
-		PreparedStatement stmt=conn.prepareStatement("");  
+		
+		PreparedStatement stmt=conn.prepareStatement("INSERT into Product values(?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?, ?, ?, ?)");  
 		
 		//transactionNum=count.incremenetandGet();
 		
-		String Transaction_Date = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(transactionD));
-
+		String transactionD = new SimpleDateFormat("MM.dd.yyyy.HH.mm.ss").format(new Timestamp(Transaction_Date));
+		
+		
 		stmt.setInt(1,transactionNum);  
 		stmt.setString(2,Seller_Name); 
 		stmt.setInt(3,Seller_Acc_Num);
 		stmt.setString(4,Buyer_Name);
 		stmt.setInt(5, Buyer_Acc_Num);
 		stmt.setString(6, Buyer_Address);
-		stmt.setString(7, Transaction_Date);
+		stmt.setString(7, transactionD);
 		stmt.setString(8,Book_Title );
 		stmt.setString(9, Author_Firstname);
 		stmt.setString(10, Author_Lastname);
@@ -59,69 +106,58 @@ public class TransactionDBAccess {
 		stmt.setDouble(15, total);
 		stmt.setString(16,received);
 		stmt.setString(17, shipped);
-			
-		int i=stmt.executeUpdate();  
-		System.out.println(i+" records updated"); 
-	}}
-	/*public void updateTransaction(){
-		
-		
-		
+		stmt.executeUpdate(); 
+		conn.close();
 	}
-	*/
+	
+	
+	
 
-
-	/*public static void main(String[] args){
-		
-		
-		
-		try
-		{
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/book?autoReconnect=true&useSSL=false", "root", "ganam");
-			PreparedStatement stmt=conn.prepareStatement("insert into Emp values(?,?)");  
-			stmt.setInt(1,101);//1 specifies the first parameter in the query  
-			stmt.setString(2,"Ratan");  
-			int i=stmt.executeUpdate();  
-			System.out.println(i+" records inserted");  
-			  
-			conn.close(); 
-		}
-			catch(Exception e)
-		{ 
-			System.out.println(e);
-		}
-		
-		
-		
-	}
-			
-			
-		}*/
-
-	/*int transactionNum;
+	/**
+	 * The following method is in charge of initiating the createTransaction method. This method will be called in the 
+	 * actionListener class for the Checkout and pay button.
+	 */
+	
+	public void addTransaction()
 	{
-		Object transaction= new Object();//Each transaction contains a transaction#, transaction date, book title, total etc. 
-										//A new transaction object will be created once a person makes a purchase.
+		try {
+			this.createTransaction(transactionNum, Seller_Name, Seller_Acc_Num, Buyer_Name, Buyer_Acc_Num,
+				Buyer_Address,Transaction_Date, Book_Title, Author_Firstname, 
+				Author_Lastname, ISBN, Price,Credit_Card_Number, Percent_Received,total, received, shipped);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
-	public int TransactionNum(){ //creates a new transaction number every time an order is placed. Transaction number is autoincremented.
+	
+	
+	
+	/**
+	 * The following method is in charge of retrieving the transaction. That will then be sent to the user asa  receipt once they
+	 * make a transaction. This method will get used in the user notification method. 
+	 * @throws SQLException
+	 */
+	public void retrieveTransaction( ) throws SQLException{ //This method retrieves the transaction and can be 
+															//sent to the user as a receipt once they make a transaction. 
+															//this method goes in the user notification method 
 		
-		
-		return 0;
-		
-		
-		
-	}
-	public String getTransaction(){//this method will retrieve the appropriate transaction information and will displayed to the user when they make a purchase.
-		conn.getConnection();
-		PreparedStatement stmt= conn.prepareStatement("Select Transaction#, SellerName, BuyerName, BuyerAddress, "
-				+ "TransactionDate,BookTitle, Author_Firstname,Author_Lastname,ISBN,Total");
+		conn=DBConnection.getConnection();
+		PreparedStatement stmt=conn.prepareStatement("select * from emp");  
 		ResultSet rs= stmt.executeQuery();
 		while(rs.next()){
-			System.out.println(rs.getInt(1)+" "+rs.getString(2));
+			System.out.println(rs.getInt(1)+"/n"+rs.getString(2)+"/n"+rs.getString(4)+"/n"+rs.getInt(5)+"/n"+rs.getString(6)+"/n"
+		+rs.getString(7)+"/n"+rs.getString(8)+"/n"+rs.getString(9)+"/n"+rs.getString(10)+"/n"+rs.getInt(11)+"/n"+rs.getDouble(15));
 		}
-			
-	}*/
+		
+
+		
+	}
+}
+	
+
+
+
 
 
