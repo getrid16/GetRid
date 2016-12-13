@@ -50,10 +50,16 @@ public class CheckoutFrame extends JFrame {
 	    		// check if IsLoggedIn = true, then add up all prices of books in cart and move to paymentFrame
 	    		//check if IsLoggedIn = false, then go to LogInFrame
 	    		
+	    	
 	    		
-	    		t1.addTransaction();	    		
-	    		
-	 	    	dispose();
+	    		t1.addTransaction();
+	    		/*try {                                       
+					t1.retrieveTransaction();          //The code that's commented out serves as a "receipt" for when a user checks out.
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}*/
+	    		dispose();
 	    		JOptionPane.showMessageDialog(null, "Thank you for your purchase. A confirmation email of the transaction will be sent out. Please give 7-10 days for processing and shipment.");
 	    		JFrame frame = new MenuFrame();
  	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

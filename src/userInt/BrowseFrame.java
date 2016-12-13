@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 
 import DBAccessClasses.BookDBAccess;
 import ObjectClasses.Book;
-
 /**
  * This Class handles the browsing part of the user interface. adding a book to a cart and searching for a particular book
  * or the entire database to see what's in it. There should be options to search by author, title or ISBN
