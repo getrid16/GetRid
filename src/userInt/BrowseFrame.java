@@ -36,7 +36,7 @@ public class BrowseFrame extends JFrame {
 	private JButton addToCartButton;
 	private JButton menu;
 	
-
+	//ArrayList<Book> cart= new ArrayList(); //for Alexanders part
 	BookDBAccess bookdba= new BookDBAccess();
 	public BrowseFrame() 
 	{
