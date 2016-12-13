@@ -20,7 +20,23 @@ import java.text.SimpleDateFormat;
  * this includes all transaction related actions and methods to fill the table
  * it will most likely be accessed by the Main Classes when an order is completed to create a record
  * A summary of the transaction will be sent to the customer as a receipt once a customer makes a transaction.
- * @author
+ * @param transactionNum This represents the transaction number
+ * @param Seller_Name This represents the name of the seller
+ * @param Seller_Acc_Num This represents the sellers account number
+ * @param Buyer_Name This represents the name of the buyer
+ * @param Buyer_Acc_Num This represents the buyers account number
+ * @param Buyer_Address This represents the buyers address
+ * @param Transaction_Date This represents the date on which a transaction was made
+ * @param Book_Title This represents the title of a book 
+ * @param Author_Firstname This represents the first name of an author from a book
+ * @param Author_Lastname This represents the last name of an author 
+ * @param ISBN This represents the ISBN of a book
+ * @param Price This represents the price of a book
+ * @param Credit_Card_Number This represents a users credit card number
+ * @param Percent_Received This represents the percent that we take from every transaction
+ * @param total This represents the total amount of a transaction
+ * 
+ * @author acord942
  *
  */
 
@@ -50,9 +66,11 @@ public class TransactionDBAccess {
 
 	//int transactionNum;
 	
+	
 	/**
 	 * The following method is in charge of creating a transaction once a user makes a purchase. 
 	 * More specifically this method updates the fields of the transaction table with the appropriate inputs.
+	 * @throws SQLException
 	 */
 	
 	//The following method is in charge of creating a transaction once a user makes a purchase. 
@@ -68,7 +86,7 @@ public class TransactionDBAccess {
 		
 		//transactionNum=count.incremenetandGet();
 		
-		String transactionD = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(Transaction_Date));
+		String transactionD = new SimpleDateFormat("MM.dd.yyyy.HH.mm.ss").format(new Timestamp(Transaction_Date));
 		
 		
 		stmt.setInt(1,transactionNum);  
@@ -91,6 +109,8 @@ public class TransactionDBAccess {
 		stmt.executeUpdate(); 
 		conn.close();
 	}
+	
+	
 	
 
 	/**
@@ -117,6 +137,7 @@ public class TransactionDBAccess {
 	/**
 	 * The following method is in charge of retrieving the transaction. That will then be sent to the user asa  receipt once they
 	 * make a transaction. This method will get used in the user notification method. 
+	 * @throws SQLException
 	 */
 	public void retrieveTransaction( ) throws SQLException{ //This method retrieves the transaction and can be 
 															//sent to the user as a receipt once they make a transaction. 

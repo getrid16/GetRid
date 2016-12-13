@@ -26,9 +26,12 @@ public class CheckoutFrame extends JFrame {
 	private JPanel cartPanel;
 	private JButton checkoutButton;
 	
-	
 	TransactionDBAccess t1= new TransactionDBAccess();//added
 	
+	
+	/**
+	 * This method calls the methods that creates the text area, buttons, and panel.
+	 */
 	public CheckoutFrame() 
 	{
 		createTextArea();
