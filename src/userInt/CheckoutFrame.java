@@ -30,7 +30,7 @@ public class CheckoutFrame extends JFrame {
 	
 	
 	/**
-	 * This method calls the methods that creates the text area, buttons, and panel.
+	 * This method calls the methods that creates the text area, buttons, and panel, which all make up the frame. 
 	 */
 	public CheckoutFrame() 
 	{
