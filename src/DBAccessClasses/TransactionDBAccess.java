@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
  * this includes all transaction related actions and methods to fill the table
  * it will most likely be accessed by the Main Classes when an order is completed to create a record
  * A summary of the transaction will be sent to the customer as a receipt once a customer makes a transaction.
- * @author gchar158
+ * @author
  *
  */
 
@@ -50,8 +50,12 @@ public class TransactionDBAccess {
 
 	//int transactionNum;
 	
-	//The following method is in charge of creating a transaction once a user makes a purchase. This method will be used in the 
-	//actionListener for the button checkout & pay
+	/**
+	 * The following method is in charge of creating a transaction once a user makes a purchase. 
+	 * More specifically this method updates the fields of the transaction table with the appropriate inputs.
+	 */
+	
+	//The following method is in charge of creating a transaction once a user makes a purchase. 
 	public void createTransaction(int transactionNum, String Seller_Name, int Seller_Acc_Num, String Buyer_Name, int Buyer_Acc_Num,
 			String Buyer_Address, int Transaction_Date, String Book_Title, String Author_Firstname, 
 			String Author_Lastname, int ISBN, Double Price, int Credit_Card_Number, Double Percent_Received, 
@@ -88,6 +92,12 @@ public class TransactionDBAccess {
 		conn.close();
 	}
 	
+
+	/**
+	 * The following method is in charge of initiating the createTransaction method. This method will be called in the 
+	 * actionListener class for the Checkout and pay button.
+	 */
+	
 	public void addTransaction()
 	{
 		try {
@@ -102,6 +112,12 @@ public class TransactionDBAccess {
 		
 	}
 	
+	
+	
+	/**
+	 * The following method is in charge of retrieving the transaction. That will then be sent to the user asa  receipt once they
+	 * make a transaction. This method will get used in the user notification method. 
+	 */
 	public void retrieveTransaction( ) throws SQLException{ //This method retrieves the transaction and can be 
 															//sent to the user as a receipt once they make a transaction. 
 															//this method goes in the user notification method 

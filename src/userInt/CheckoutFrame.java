@@ -4,16 +4,20 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
 import DBAccessClasses.TransactionDBAccess;
+
+/**
+ * this class contains the user interface which will give the user the option of checking out
+ * more specifically this class shows what will happen when a user clicks on the checkout button
+ * @author 
+ *
+ */
 
 public class CheckoutFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
